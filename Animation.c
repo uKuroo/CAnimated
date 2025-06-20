@@ -8,7 +8,7 @@ int upOrDown = 0;
 
 void waitAndClear(){
     usleep(180000);
-    system("clear | cls");
+    system("clear");
 }
 
 void animation(int indexEmoji, char sentence[], int len, int qtdLines){
@@ -17,8 +17,7 @@ void animation(int indexEmoji, char sentence[], int len, int qtdLines){
     if(indexY == 0) upOrDown = 0;
     
     char empty[38] = "                                    "; 
-    char sentenceConcat[qtdLines][38]; 
-    
+    char sentenceConcat[qtdLines][38];
     
     for(int i = 0; i<qtdLines; i++){
         strcpy(sentenceConcat[i], empty);
@@ -27,7 +26,6 @@ void animation(int indexEmoji, char sentence[], int len, int qtdLines){
     if (indexEmoji + len < sizeof(sentenceConcat[0]) - 1) {
         strncpy(sentenceConcat[indexY] + indexEmoji, sentence, len);
     }
-    
  
     printf("|====================================|\n");
     for(int i = 0; i< qtdLines; i++){
@@ -55,12 +53,31 @@ void startAnimation(char sentence[], int len, int qtdLines){
 
 int main()
 {
-    char sentence[100];
+    char sentence[250];
     int qtdLines = 0;
-
-    printf("Write the sentence to show on screen\n");
-    fgets(sentence, 100, stdin);
-    printf("Choose how many lines it'll have\n");
+    int validate = 0;
+    
+    do{
+        system("clear");
+        
+        printf("Write the sentence to show on screen (max: 35 chars)\n");
+        
+        fgets(sentence, 250, stdin);
+        if(strlen(sentence) <= 36)
+           validate = 1;
+           
+    }while(validate == 0);
+    
+    validate = 0;
+    
+    do{
+        system("clear");
+        printf("Choose how many lines it'll have (int)\n");
+        validate = scanf("%d", &qtdLines);
+        
+        getchar();
+    }while(validate == 0);
+    
     scanf("%d", &qtdLines);
 
     int len;
