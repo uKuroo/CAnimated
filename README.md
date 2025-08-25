@@ -1,2 +1,2 @@
 # CAnimated
-A simple simulation of the animation "DVD screens" from old tube TVs using C
+A simple simulation of the classic DVD screensaver from old tube TVs, using C.
