@@ -19,14 +19,18 @@ typedef struct Colors{
 int indexY = 0;
 int upOrDown = 0;
 
+void clearTerminal(){
+    system("clear");
+}
+
 void waitAndClear(){
     usleep(180000);
-    system("clear");
+    clearTerminal();
 }
 
 void initializeColors(Colors colors[]){
     colors[0].id = 0;
-    strcpy(colors[0].colorCode, ANSI_COLOR_RED);
+    strcpy(colors[0].colorCode, ANSI_COLOR_RESET);
     
     colors[1].id = 1;
     strcpy(colors[1].colorCode, ANSI_COLOR_GREEN);
@@ -44,7 +48,7 @@ void initializeColors(Colors colors[]){
     strcpy(colors[5].colorCode, ANSI_COLOR_CYAN);
 
     colors[6].id = 6;
-    strcpy(colors[6].colorCode, ANSI_COLOR_RESET);
+    strcpy(colors[6].colorCode, ANSI_COLOR_RED);
 }
 
 void animation(int indexSentence, char sentence[], int len, int qtdLines){
@@ -91,16 +95,18 @@ void startAnimation(char sentence[], int len, int qtdLines){
 
 int menuColors(){
     printf("Choose one color\n");
-    printf("0 - RED\n");
+    printf("0 - WHITE\n");
     printf("1 - GREEN\n");
     printf("2 - YELLOW\n");
     printf("3 - BLUE\n");
     printf("4 - MAGENTA\n");
     printf("5 - CYAN\n");
-    printf("6 - WHITE\n");
+    printf("6 - RED\n");
 
     int colorNumber;
+
     scanf("%d", &colorNumber);
+
     system("clear");
     return colorNumber;
 }
@@ -121,10 +127,19 @@ int main()
 
     printf("Write the sentence to show on screen\n");
     fgets(sentence, 100, stdin);
+
     printf("Choose how many lines it'll have\n");
-    scanf("%d", &qtdLines);
+    do{
+        scanf("%d", &qtdLines);
+        
+        if(qtdLines <= 1){
+            clearTerminal();
+            printf("Must be 2 or more lines!!\nChoose how many lines it'll have\n");
+        }
+    }while(qtdLines <= 1);
 
     int len;
+    
     for(len = 0; sentence[len] != '\n'; len++)
         printf("%d", len);
 
